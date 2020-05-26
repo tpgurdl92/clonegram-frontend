@@ -44,7 +44,11 @@ const SearchPresenter = ({searchTerm,loading, data})=>{
                     <PostSection>
                         {data.searchPost.length ===0 ?  
                        <FatText  text={"No Posts Found"} />:
-                       data.searchPost.map(post=> <PostCard key={post.id} likeCount={post.likeCount} commentCount={post.commentCount} file={post.files[0]}/>)
+                       data.searchPost.map(post=> 
+                            <PostCard 
+                                key={post.id} 
+                                {...post}
+                                />)
                        }
                     </PostSection>
                 </Wrapper>)

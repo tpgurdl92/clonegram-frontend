@@ -29,6 +29,9 @@ export const dateTransformer = (dateString) => {
         }
         return ` ${month}월 ${date}일`;
     }else if(date===currentDate){
+        if(currentHours===hours){
+            return `${currentMinutes-minutes}분 전`;
+        }
         return `${currentHours-hours}시간 전`;
     }else{
         return ` ${month}월 ${date}일`;

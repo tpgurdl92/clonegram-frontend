@@ -14,15 +14,56 @@ query seeUser($username:String!){
         bio
         followersCount
         followingCount
-        posts {
+        following{
             id
+            avatar
+            username
+            bio
+            amIFollowing
+        }
+        followers{
+            id
+            avatar
+            username
+            bio
+            amIFollowing
+        }
+        posts {
+            id, 
             files{
                 url
-            }
-            likeCount
-            commentCount
+            },
+            location,
+            caption,
+            user{
+                id
+                username
+                avatar
+                amIFollowing
+            },
+            comment{
+                id
+                text
+                user{
+                    avatar
+                    username
+                }
+                createdAt
+            },
+            isLiked,
+            likeCount,
+            createdAt,
+            updatedAt,
+            commentCount,
         }
         postsCount
     }
 }
+`;
+
+export const LOG_OUT = gql`
+    mutation logUserOut{
+        logUserOut @client
+    }
+
 `;

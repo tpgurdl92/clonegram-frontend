@@ -89,9 +89,11 @@ export default () => {
                     <HeaderLink to="/notifications">
                         <HeartEmpty/>
                     </HeaderLink>     
-                    {!data? <HeaderLink to="/#">
+                    {!data&& <HeaderLink to="/#">
                         <Person/>
-                    </HeaderLink> :<HeaderLink to={data.me.username}>
+                    </HeaderLink> }
+                    {data&&data.me&& 
+                    <HeaderLink to={data.me.username}>
                         <Person/>
                     </HeaderLink>   }           
                 </HeaderColumn>
