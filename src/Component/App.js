@@ -18,6 +18,7 @@ const QUERY = gql`
 `
 
 const Wrapper = styled.div`
+  padding-top:6rem;
   margin: 0 auto;
   max-width:${props=> props.theme.maxWidth};
   width:100%;

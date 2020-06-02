@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
+import LinesEllipsis from 'react-lines-ellipsis'
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import TextareaAutosize from 'react-autosize-textarea';
@@ -83,7 +84,7 @@ const Timestamp = styled.span`
 const Textarea = styled(TextareaAutosize)`
     background-color:white;
     border:none;
-    width:100%;
+    width:90%;
     resize:none;
     ::placeholder{
         font-weight:600;
@@ -97,14 +98,65 @@ const Textarea = styled(TextareaAutosize)`
 
 const Comments = styled.ul`
     margin-top: 10px;
+    
 `;
-
 const Comment = styled.li`
+    vertical-align:top;
     margin-bottom: 7px;
     span{
         margin-right:5px;
     }
 `;
+const UsernameBox =styled.span`
+    margin-right:8px;
+    font-weight:550;
+    font-size:18px;
+    text-align:center;
+`;
+const EllipsisText = styled.span`
+    word-break:${props=>props.isOpen===true?'break-all':'keep-all'};
+    width:400px;
+    overflow:hidden;
+    line-height:22px;
+`;
+const EllipsisBox = styled.span`
+    margin-left:5px;
+    color:${props=>props.theme.lightGreyColor};
+    cursor:pointer;
+`;
+const CommentText = styled.span`
+    display:inline-block;
+    white-space: nowrap;
+    overflow:hidden;
+    width:400px;
+    margin-bottom:-5px;
+`;
+const OverFlowText = styled.span`
+`;
+
+const CommentEllipsis = ({item}) =>{
+    const [isOpen, setIsOpen] = useState(false);
+    const isOverFlow = item.text.length>40;
+    const Ellipsis = () =>{
+        const onClick=() =>{
+            setIsOpen(!isOpen);
+        }
+        return (<EllipsisBox onClick={onClick}>{'더 보기'}</EllipsisBox>);
+    }
+    return (<>
+                <EllipsisText isOverFlow={isOverFlow} isOpen={isOpen}>
+                    <UsernameBox>{item.user.username}</UsernameBox>
+                    {isOpen===false?
+                        <CommentText>{item.text}</CommentText>
+                        :
+                        <OverFlowText>{item.text}</OverFlowText>
+                    }
+                    {isOverFlow&&!isOpen&&<Ellipsis/>}
+                </EllipsisText>
+            </>
+
+    );
+}
 
 export default ({user:{username,avatar},location,files,isLiked,likeCount,createdAt,newComment,currentItem,toggleLike,onKeyPress,comment,selfComments,caption}) => (
     <Post>
@@ -129,13 +181,12 @@ export default ({user:{username,avatar},location,files,isLiked,likeCount,created
             {comment && (<Comments>
                 {comment.map(item => 
                 <Comment key={item.id}>
-                    <FatText text={item.user.username}/>
-                    {item.text}
+                   <CommentEllipsis item={item}/>
                 </Comment>)}
                 {selfComments.map(item => 
                 <Comment key={item.id}>
                     <FatText text={item.user.username}/>
-                    {item.text}
+                    <LinesEllipsis text={item.text} maxLine='1'/>
                 </Comment>)}
             </Comments>)}
             <Timestamp>{createdAt}</Timestamp>

@@ -21,6 +21,7 @@ const Overlay = styled.div`
 `; 
 
 const Container = styled.div`
+    height:300px;
     background-image: url(${props=>props.bg});
     background-size: cover;
     background-repeat:no-repeat;
@@ -65,8 +66,7 @@ const PostDetailModal = Modal.styled`
 `;
 
 export const PostCard  =(props) => {
-    console.log(props);
-    const {id,likeCount, commentCount, files} = props;
+    const {id,likeCount, commentCount, files, } = props;
     const [isOpen, setIsOpen] = useState(false);
     const [opacity, setOpacity] = useState(0);
   

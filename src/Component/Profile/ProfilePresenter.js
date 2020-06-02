@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {Helmet} from "react-helmet";
+import axios from "axios";
 import Loader from "../Loader";
 import Avatar from "../Avatar";
 import FatText from "../FatText";
@@ -9,6 +10,7 @@ import PostCard from "../PostCard";
 import Button from "../Button";
 import Modal, { ModalProvider, BaseModalBackground } from "styled-react-modal";
 import UserList from "../UserList";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
     min-height:100vh;
@@ -63,10 +65,14 @@ const Bio = styled.p`
 `;
 
 const Posts =styled.div`
-    display:grid;
-    grid-template-columns: repeat(4, 200px);
-    grid-template-rows:200px;
-    grid-auto-rows:200px;
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows:201px;
+  grid-template-rows:201px;
+`
+
+const PostCover =styled.div`
+   height:200px;
 `;
 
 const UserListModal = Modal.styled`
@@ -80,18 +86,32 @@ const UserListModal = Modal.styled`
     transition: opacity linear 300ms;
     border-radius:5px;
 `;
+
+const AvatarForm = styled.div`
+    cursor:pointer;
+`;
+const AvatarInput = styled.input`
+    display:none;
+`;
+
 const FadingBackground = styled(BaseModalBackground)`
   opacity: ${props => props.opacity};
   transition: opacity linear 500ms;
 `;
 
-export default ({loading,data,logOut}) =>{
+export default ({loading,data,logOut,avatarRef,onAvatarChange,avatarS}) =>{
 
     const [isOpenA, setIsOpenA] = useState(false);
     const [opacityA, setOpacityA] = useState(0);
     const [isOpenB, setIsOpenB] = useState(false);
     const [opacityB, setOpacityB] = useState(0);
-  
+
+    function onAvatarClick(){
+        avatarRef.current.click();
+    }
+
+        
+
     function toggleModalA(e) {
       e.preventDefault();
       setIsOpenA(!isOpenA);
@@ -154,8 +174,10 @@ export default ({loading,data,logOut}) =>{
                     </Helmet>
                     <Header>
                         <HeaderColumn> 
-                            <Avatar size="lg" url={avatar}/>
-                            
+                            <AvatarForm onClick={onAvatarClick}>
+                                <Avatar size="lg" url={avatarS===""?avatar:avatarS}/>
+                                <AvatarInput onChange={()=>onAvatarChange()} ref={avatarRef} type="file" accept="image/*"/>
+                            </AvatarForm>
                         </HeaderColumn>
                         <HeaderColumn>
                         <UsernameRow>
@@ -178,7 +200,7 @@ export default ({loading,data,logOut}) =>{
                         </HeaderColumn>
                     </Header>
                     <Posts>
-                        {posts && posts.map(post => (<PostCard key={post.id} {...post}/>))}
+                        {posts && posts.map(post => (<PostCover><PostCard key={post.id} {...post}/></PostCover>))}
                     </Posts>
                     </Wrapper>
                     <UserListModal 

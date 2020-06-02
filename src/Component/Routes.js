@@ -10,7 +10,7 @@ import Search from "../Routes/Search";
 const LoggedInRoutes = () => (
     <Switch>
         <Route exact path="/" component={Feed}/>
-        <Route path="/explore" component={Profile}/>
+        <Route path="/explore" component={Explore}/>
         <Route path="/search" component={Search}/>
         <Route path="/:username" component={Profile} />    
         <Redirect from="*" to="/" />

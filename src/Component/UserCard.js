@@ -23,10 +23,17 @@ const ELink = styled(Link)`
     margin-bottom:10px;
 `;
 
-const UserCard = ({id, username, isFollowing, url,itsMe}) => 
+const Reason = styled.span`
+    color:${props=>props.theme.darkGreyColor};
+    font-weight:500;
+    margin-bottom:15px;
+`;
+
+const UserCard = ({id, username, isFollowing, url,itsMe,reason=""}) => 
 (<Card>
     <EAvatar  url={url} size={"md"}/>
     <ELink to ={`/${username}`} ><FatText text={username} /></ELink>
+    <Reason >{reason}</Reason>
     {!itsMe && <FollowButton isFollowing={isFollowing} id={id} />}
 </Card>);
 
@@ -36,6 +43,7 @@ UserCard.propTypes ={
     isFollowing:PropTypes.bool.isRequired,
     url:PropTypes.string.isRequired,
     itsMe:PropTypes.bool.isRequired,
+    reason:PropTypes.string,
 }
 
 export default UserCard

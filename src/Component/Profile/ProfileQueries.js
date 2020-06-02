@@ -61,6 +61,14 @@ query seeUser($username:String!){
 }
 `;
 
+export const EDIT_AVATAR = gql`
+    mutation editUser($avatar:String!){
+        editUser(avatar:$avatar){
+            avatar
+        }
+    }
+`;
+
 export const LOG_OUT = gql`
     mutation logUserOut{
         logUserOut @client
