@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import LinesEllipsis from 'react-lines-ellipsis'
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import TextareaAutosize from 'react-autosize-textarea';
@@ -185,8 +184,7 @@ export default ({user:{username,avatar},location,files,isLiked,likeCount,created
                 </Comment>)}
                 {selfComments.map(item => 
                 <Comment key={item.id}>
-                    <FatText text={item.user.username}/>
-                    <LinesEllipsis text={item.text} maxLine='1'/>
+                    <CommentEllipsis item={item}/>
                 </Comment>)}
             </Comments>)}
             <Timestamp>{createdAt}</Timestamp>

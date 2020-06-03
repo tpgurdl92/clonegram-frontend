@@ -8,9 +8,10 @@ export const resolvers = {
             localStorage.setItem("token", token);
             cache.writeData({
                 data:{
-                isLoggedIn:true
+                    isLoggedIn:true
                 }
             });
+            window.location.reload();
             return null;
         },
         logUserOut:(_,__,{cache})=>{
