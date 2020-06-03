@@ -66,13 +66,13 @@ const Bio = styled.p`
 
 const Posts =styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 200px);
-  grid-template-rows:201px;
-  grid-template-rows:201px;
+  grid-template-columns: repeat(3, 300px);
+  grid-template-rows:300px;
+  grid-template-rows:300px;
 `
 
 const PostCover =styled.div`
-   height:200px;
+   width:300px;
 `;
 
 const UserListModal = Modal.styled`
@@ -142,9 +142,8 @@ export default ({loading,data,logOut,avatarRef,onAvatarChange,avatarS}) =>{
       });
     }
 
-    if(loading){
-        return <Wrapper><Loader /></Wrapper>
-    }else{
+  
+    if(data&&data.seeUser){
         console.log(data);
         const {seeUser:{
             id,
@@ -224,6 +223,10 @@ export default ({loading,data,logOut,avatarRef,onAvatarChange,avatarS}) =>{
                         <UserList type="following" users={following}/>
                     </UserListModal>
                     </ModalProvider>);
+        }else if(loading){
+            return <Wrapper><Loader /></Wrapper>
+        }else{
+            return "Please try again"
         }
     
 };

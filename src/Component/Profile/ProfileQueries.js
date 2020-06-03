@@ -31,6 +31,7 @@ query seeUser($username:String!){
         posts {
             id, 
             files{
+                id
                 url
             },
             location,
@@ -45,6 +46,7 @@ query seeUser($username:String!){
                 id
                 text
                 user{
+                    id
                     avatar
                     username
                 }

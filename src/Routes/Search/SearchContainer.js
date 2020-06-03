@@ -6,15 +6,18 @@ import { SEARCH } from "./SearchQueries";
 
 export default withRouter(({location:{search}})=>{
     const term = search.split("=")[1];
-    const {data, loading} = useQuery(SEARCH,{
+    console.log(term);
+    const result = useQuery(SEARCH,{
         skip:(term ===""||term===undefined),
         variables:{
-            term,
+            term:term,
             action:"TERM"
         }
     });
-    console.log(data);
+    const {data, loading} =result;
+    console.log(result);
     
     return <SearchPresenter searchTerm={term} loading={loading} data={data}/>;
+    
 });
 

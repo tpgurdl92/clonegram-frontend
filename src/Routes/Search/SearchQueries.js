@@ -5,6 +5,7 @@ export const SEARCH= gql`
         searchPost(term:$term, action:$action){
             id, 
             files{
+                id
                 url
             },
             location,
@@ -19,6 +20,7 @@ export const SEARCH= gql`
                 id
                 text
                 user{
+                    id
                     avatar
                     username
                 }
