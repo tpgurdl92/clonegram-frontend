@@ -54,6 +54,7 @@ const ListBox = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
+    align-items:center;
 `;
 const ContentBox = styled.div`
     padding :8px 0px;
@@ -76,7 +77,6 @@ const Footer = styled.footer`
     justify-content:center;
     align-items:center;
     flex: 0 0 1;
-    
 `;
 
 const ItemSpanBox = styled.span`
@@ -87,8 +87,10 @@ const ItemDivBox = styled.div`
 `;
 const RoomInfo = styled.div`
     display:flex;
-    padding:8px 5px;
+    padding:8px 14px;
     cursor:pointer;
+    width:100%;
+    
 `;
 const RommMeta = styled.div`
     display:flex;
@@ -195,7 +197,7 @@ const SearchUserModal = Modal.styled`
     border-radius:10px;
     
 `;
-export default ({setListData,setCreatedRoom,createdRoom,newMessages,messagesEndRef,onKeyPress,messageInput,onRoomClick,selectedRoom,listLoading,listData}) => {
+export default ({setListData,newMessages,messagesEndRef,onKeyPress,messageInput,onRoomClick,selectedRoom,listLoading,listData}) => {
     let messageDate =null;
     const [isOpen, setIsOpen] = useState(false);
     const [opacity, setOpacity] = useState(0);
@@ -336,7 +338,7 @@ export default ({setListData,setCreatedRoom,createdRoom,newMessages,messagesEndR
             opacity={opacity}
             backgroundProps={{ opacity }}
         >
-            <SearchUser setListData={setListData}onRoomClick={onRoomClick}listData={listData} setCreatedRoom={setCreatedRoom} toggleModal={toggleModal}/>
+            <SearchUser setListData={setListData}onRoomClick={onRoomClick}listData={listData}  toggleModal={toggleModal}/>
         </SearchUserModal >
         </ModalProvider>
     );

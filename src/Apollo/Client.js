@@ -58,10 +58,10 @@ const client = new ApolloClient({
         ),
     withClientState({
         defaults,
-        resolvers,
         cache
-    }),
-  ]),
+      }),
+    ]),
+    resolvers,
   cache
   
 });

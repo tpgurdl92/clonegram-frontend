@@ -44,6 +44,9 @@ const ReceiverBox = styled.div`
 
 `;
 const SelectionContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
     overflow-x:hidden;
     width:100%;
     min-height:205px;
@@ -59,7 +62,7 @@ const UserColumn = styled.div`
     display:flex;
     width:100%;
     align-items:center;
-    margin:7px 10px;
+    padding:7px 10px;
 `;
 const UserInfo = styled.div`
     display:flex;
@@ -104,7 +107,7 @@ export default ({createTempRoom,cancelCheck,recipients,handleCheckBox,loading, d
                     :
                     <EmptyBox>
                         {recipients.map(item=>(
-                            <UserNameCard>
+                            <UserNameCard key={item.id}>
                                 {item.username}
                                 &nbsp; &nbsp; 
                                 <Button onClick={()=>cancelCheck(item)}>
@@ -126,7 +129,7 @@ export default ({createTempRoom,cancelCheck,recipients,handleCheckBox,loading, d
                     <Loader/>
                     :
                     data&&data.searchUser&&data.searchUser.map(item=>
-                        <UserColumn>
+                        <UserColumn key={item.id}>
                             <Avatar size="sm" url={item.avatar} />
                             <UserInfo>
                                 <FatText text={item.username}/>

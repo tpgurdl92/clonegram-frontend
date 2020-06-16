@@ -12,11 +12,10 @@ export default () => {
     const messageInput = useInput("");
     const messagesEndRef= useRef(null);
     const {loading:listLoading,data:roomData} =useQuery(SEE_ROOMS);
-    const [listData, setListData] = useState([]);
+    const [listData, setListData] = useState({seeRooms:[]});
     const [createRoomMutation] = useMutation(CREATE_ROOM);
     const [sendMessageMutation] = useMutation(SEND_MESSAGE);
     const [room, setRoom] = useState(null);
-    const [createdRoom, setCreatedRoom] = useState([]);
     const [myId, setMyId] = useState(null)
     const [toId, setToId] = useState("");
     const [newMessages, setNewMessages] = useState([]);
@@ -28,35 +27,46 @@ export default () => {
         console.log('ggg')
     }
 
-
+    useEffect(()=>{console.log(listData)},[listData]);
     useEffect(()=>{
         console.log("newMessage");
         if(newMessageData!==undefined){
             const {newMessage} = newMessageData;
             console.log(newMessage);
-            let tempListData =  listData
-            const idx= tempListData.seeRooms.findIndex((item)=>item.id===newMessage.room.id);
-            tempListData.seeRooms[idx].messages.push(newMessage);
+            let tempListData =  listData;
+            let idx=-1;
+            console.log(tempListData);
+            if(tempListData&&tempListData.seeRooms){
+                idx= tempListData.seeRooms.findIndex((item)=>item.id===newMessage.room.id);
+            }
+            if(idx>-1){
+                console.log("im in");
+                console.log(tempListData.seeRooms[idx])
+                tempListData.seeRooms[idx].messages.push({...newMessage});
+            }else{
+                const addRoom={
+                    id:newMessage.room.id,
+                    participantA:room.participantA,
+                    participantB:room.participantB,
+                    messages:[newMessage]
+                };
+                tempListData.seeRooms.push(addRoom);
+            }
             console.log(tempListData);
             setListData(previous=>{return {...tempListData}});
             setTimeout(()=>scrollToBottomInit(),50);
         }
     },[newMessageData]);
 
-
+    useEffect(()=>{
+        console.log("refresh");
+        console.log(roomData);
+        if(roomData!==undefined&&roomData.seeRooms.length!==0){
+            setListData(roomData);
+        }
+    },[roomData])
     useEffect(()=>scrollToBottomInit(),[room]);
     
-    useEffect(()=>{
-        console.log("roomData refresh");
-        /*
-        if(roomData!==undefined){
-            setListData({...roomData});
-        }
-        */
-        
-    },[roomData]);
-    
-   
     const onRoomClick = (selectedRoom) => {
         const {room:roomS} = selectedRoom
         setToId(roomS.participantA.itsMe? roomS.participantB.id:roomS.participantA.id);
@@ -88,20 +98,27 @@ export default () => {
             try{
                 
                 let tempRoom = room;
-                if(tempRoom.id==="k"){
+                let tempRoomId= tempRoom.id;
+                if(tempRoomId.includes("createRoom")){
+                    console.log(listData);
                     const {data:{createRoom}} = await createRoomMutation({variables:{toId:tempRoom.participantA.id,text:messageInput.value}});
                     tempRoom=createRoom;
                     tempRoom.messages=[];
                     let tempListData = listData;
-                    const idx=tempListData.seeRooms.findIndex(item=>(item.participantA.id===createRoom.participantA.id||item.participantA.id===createRoom.participantB.id));
-                    tempListData.seeRooms[idx] = {...tempRoom}
-                    setListData(tempListData);
-                }
-                
-                console.log(tempRoom)
+                    console.log(createRoom);
+                    const idx=tempListData.seeRooms.findIndex(item=>{
+                        console.log(item.participantA.id);
+                        console.log(item.participantB.id);
+                        
+                        return (item.id===tempRoomId);
+                    });
+                    console.log(tempListData);
+                    console.log(idx);
+                   tempListData.seeRooms[idx] = {...tempRoom}
+                    setListData(previous=>tempListData);
+                } 
                 const {data:{sendMessage}} = await sendMessageMutation({variables:{roomId:tempRoom.id, text:messageInput.value,toId:toId}})
                 tempRoom.messages.push({...sendMessage})
-                console.log(tempRoom);
                 setRoom({...tempRoom});
             }catch(e){
                 console.log(e);
@@ -111,6 +128,6 @@ export default () => {
     }
 
     return (
-        <MessagePresenter setListData={setListData}setCreatedRoom={setCreatedRoom}createdRoom={createdRoom} newMessages={newMessages} messagesEndRef={messagesEndRef} onKeyPress={onKeyPress} messageInput={messageInput}onRoomClick={onRoomClick} selectedRoom={room} listLoading={listLoading} listData={roomData}/>
+        <MessagePresenter setListData={setListData} newMessages={newMessages} messagesEndRef={messagesEndRef} onKeyPress={onKeyPress} messageInput={messageInput}onRoomClick={onRoomClick} selectedRoom={room} listLoading={listLoading} listData={listData}/>
     )
 }

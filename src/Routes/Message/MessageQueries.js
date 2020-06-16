@@ -21,6 +21,18 @@ export const NEW_MESSAGE = gql`
             createdAt
             room{
                 id
+                participantA{
+                    id
+                    username
+                    avatar
+                    itsMe 
+                }
+                participantB{
+                    id
+                    username
+                    avatar
+                    itsMe 
+                }
             }
         }
     }

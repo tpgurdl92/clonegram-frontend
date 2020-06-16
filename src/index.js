@@ -7,10 +7,11 @@ import client from './Apollo/Client';
 
 
 ReactDOM.render(
-  
+    
     <ApolloHookProvider client={client}>
       <App/>
-    </ApolloHookProvider>    
+    </ApolloHookProvider>  
+    
   ,
   document.getElementById('root')
 );

@@ -89,6 +89,13 @@ const ThinText =styled.span`
     font-weight:450;
     display:inline-block;
 `;
+const CenterBox= styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:100%;
+`;
 
 const ALARM = gql`
     query seeAlarm{
@@ -124,6 +131,7 @@ export default () => {
                 <Loader/>
                 :
                 <Container>
+                    {data&&data.seeAlarm&&data.seeAlarm.length===0&&<CenterBox><FatText text="No Alarm"/></CenterBox>}
                     {data&&data.seeAlarm&&data.seeAlarm.map(item=>
                         <ContentWrapper key={item.id}>
                             <Content>

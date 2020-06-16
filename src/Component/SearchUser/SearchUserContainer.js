@@ -5,7 +5,7 @@ import { SEARCH_USER } from "./SearchUserQueries";
 import SearchUserPresenter from "./SearchUserPresenter";
 import { getNullableType } from "graphql";
 
-export default ({setListData,onRoomClick,listData,setCreatedRoom,toggleModal}) => {
+export default ({setListData,onRoomClick,listData,toggleModal}) => {
     const searchInput = useInput("");
     const [recipients,setRecipients] = useState([]);
     const {loading, data,refetch} = useQuery(SEARCH_USER,{variables:{term:searchInput.value},skip:searchInput.value===""});
@@ -28,6 +28,7 @@ export default ({setListData,onRoomClick,listData,setCreatedRoom,toggleModal}) =
     const createTempRoom = () => {
         let isRoomCreated = false;
         let existRoom=null;
+        let idx= 0;
         console.log(recipients);
         const recipientList=recipients.filter(item=>{
             if(listData&&listData.seeRooms){
@@ -47,7 +48,7 @@ export default ({setListData,onRoomClick,listData,setCreatedRoom,toggleModal}) =
                 isRoomCreated=true;
                 console.log("add room");
                 return {
-                    id:"k",
+                    id:"createRoom"+idx++,
                     participantA:{
                         id:item.id,
                         username:item.username,
@@ -73,7 +74,7 @@ export default ({setListData,onRoomClick,listData,setCreatedRoom,toggleModal}) =
             let tempListData= listData;
             tempListData.seeRooms=[...listData.seeRooms,...recipientList]
             console.log(tempListData)
-            setListData(tempListData);
+            setListData(previous=>tempListData);
             //setCreatedRoom(previous=>[...previous,...recipientList]);
         }else if(existRoom){
             onRoomClick({room:existRoom});
