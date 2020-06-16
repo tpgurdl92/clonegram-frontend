@@ -62,6 +62,7 @@ const textSet ={
 안심하고 인증을 부탁드립니다.\n\
 (각 메일서비스 정책 상 인증메일의 수신이 어려울 수 있습니다.\n\
 가급적 G-MAIL서비스를 통한 인증을 부탁드립니다)\n\n\
+※인증메일 도착하지 않을 경우, 스팸메일함의 확인을 부탁드립니다.\n\n\
 문의 사항이 있으실 시 아래의 메일을 통하여 문의주시거나 
 로그인 후 DM을 통해 문의주시면 확인 후 답변드리겠습니다. \n\n\
 감사합니다.\n\n\
@@ -79,6 +80,7 @@ const textSet ={
 ご安心ください。\n\
 （各メールサービスのポリシーにより、認証メールの受信ができない場合があります。\n\
 可能な場合、G-MAILサービスにて認証の程、よろしくお願いいたします。）\n\n\
+※認証メールが届かない場合、スパムメール箱をご確認ください。\n\n\
 本サイトに関して問い合わせがある場合、下記のメールアドレスまで問い合わせいただくか、\n\n\
 ログイン後ダイレクトメッセージを通じてお問い合わせをお願いいたします。\n\n\
 ありがとうございます。\n\n\
@@ -95,6 +97,7 @@ it is required to authenticate your mail address for entering home.\n\n\
 the mail address used for authentication won'be used for private, commercial purpose.\n\
 (I have found a trouble with sending authentication mail because of policy of mail service which is used.\n\
 I confirmed that G-MAIL is available so please use G-MAIL for authentication)\n\n\
+※if you couldn't get authentication mail, please check your spam mail box\n\n\
 if you have any question Please e-mail me to the following e-mail address. 
 or you may send me DM after you finished authentication.\n\n\
 thank you.\n\n\
