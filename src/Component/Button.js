@@ -10,7 +10,7 @@ const Container = styled.button`
     font-weight:600;
     background-color:${props=>props.theme.blueColor};
     text-align:center;
-    padding: 10px 0px;
+    padding: 10px 8px;
     font-size:14px;
     cursor:pointer;
 `;

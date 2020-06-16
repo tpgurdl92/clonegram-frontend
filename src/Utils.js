@@ -37,3 +37,17 @@ export const dateTransformer = (dateString) => {
         return ` ${month}월 ${date}일`;
     }
 }
+
+
+export const dateTransformerForMSG = (dateString) => {
+
+    let postDate = new Date(dateString);    
+    let year = postDate.getFullYear();
+    let month = postDate.getMonth()+1;
+    let date = postDate.getDate();
+    let hours = postDate.getHours();
+    let minutes = postDate.getMinutes();
+    let seconds = postDate.getSeconds();
+
+    return `${year}년 ${month}월 ${date}일 `;
+}

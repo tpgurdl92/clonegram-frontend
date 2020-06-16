@@ -5,7 +5,7 @@ import Modal, { ModalProvider, BaseModalBackground } from "styled-react-modal";
 import ME from "../SharedQueries";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
-import { Compass, HeartEmpty, Person,Logo } from "./Icons";
+import { Compass, HeartEmpty, Person,Logo,Message } from "./Icons";
 import { useQuery } from "react-apollo-hooks";
 import Alarm from "./Alarm";
 
@@ -143,12 +143,18 @@ export default () => {
                     <Logo />
                 </Link>            
                 </HeaderColumn>
+
                 <HeaderColumn>
                     <form onSubmit={onSearchSubmit}>
                     <SearchInput {...search} required={false} placeholder="Search"/>
                     </form>
                 </HeaderColumn>
+                
+                
                 <HeaderColumn>
+                    <HeaderLink to="/message">
+                        <Message />
+                    </HeaderLink>
                     <HeaderLink to="/explore">
                         <Compass/>
                     </HeaderLink>
