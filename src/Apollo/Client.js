@@ -11,7 +11,7 @@ import { getMainDefinition } from 'apollo-utilities';
 
 
 export const APOLLO_URI =process.env.NODE_ENV=== "development" ?"http://localhost:4000":"https://clonegram-backend.herokuapp.com";
-export const APOLLO_URI_WS =process.env.NODE_ENV=== "development" ?"ws://localhost:4000":"ws://clonegram-backend.herokuapp.com";
+export const APOLLO_URI_WS =process.env.NODE_ENV=== "development" ?"ws://localhost:4000":"wss://clonegram-backend.herokuapp.com";
 
 // Create an http link:
 const httpLink = new HttpLink({
