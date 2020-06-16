@@ -11,11 +11,11 @@ import { getMainDefinition } from 'apollo-utilities';
 
 
 export const APOLLO_URI =process.env.NODE_ENV=== "development" ?"http://localhost:4000":"https://clonegram-backend.herokuapp.com";
-
+export const APOLLO_URI_WS =process.env.NODE_ENV=== "development" ?"ws://localhost:4000":"ws://clonegram-backend.herokuapp.com";
 
 // Create an http link:
 const httpLink = new HttpLink({
-    uri: 'http://localhost:4000',
+    uri: APOLLO_URI,
     headers:{
         "Authorization":`Bearer ${localStorage.getItem("token")}`
     }
@@ -23,7 +23,7 @@ const httpLink = new HttpLink({
   
   // Create a WebSocket link:
   const wsLink = new WebSocketLink({
-    uri: `ws://localhost:4000`,
+    uri: APOLLO_URI_WS,
     headers:{
         "Authorization":`Bearer ${localStorage.getItem("token")}`
     },
