@@ -35,8 +35,11 @@ export const RECOMMEND_FEED = gql`
                 user{
                     id
                     username
+                    avatar
                 }
+                createdAt
             }
+            commentCount
             createdAt
         }
     } 

@@ -212,7 +212,9 @@ export default ({id, files,location,caption,user,comment,isLiked,likeCount,creat
                     <Avatar size={"sm"} url={user.avatar}/>
                     <FatText text={user.username} />
                     <ButtonCover>
+                    {user.itsMe&&
                         <FollowButton id={user.id} isFollowing={user.amIFollowing}/>
+                    }
                     </ButtonCover>
                 </Header>
                 <CommentsBox>
@@ -246,11 +248,11 @@ export default ({id, files,location,caption,user,comment,isLiked,likeCount,creat
                 </CommentsBox>
                 <Meta>
                     <Buttons>
-                        <Button onClick={toggleLike}>{isLiked? <HeartFull/> :<HeartEmpty/>}</Button>
+                        <Button onClick={toggleLike}>{isLikedS? <HeartFull/> :<HeartEmpty/>}</Button>
                         <Button><CommentIcon/></Button>
                         <Button><Save/></Button>
                     </Buttons> 
-                    <span><FatText text={likeCount===1? '1 like':`${likeCount} likes`}/></span>
+                    <span><FatText text={likeCountS===1? '1 like':`${likeCountS} likes`}/></span>
                     <Timestamp>{dateTransformer(createdAt)}</Timestamp>
                 </Meta>
                 <Textarea placeholder={"Add a comment..."} value={commentI.value} onChange={commentI.onChange} onKeyDown={onKeyPress}/> 
