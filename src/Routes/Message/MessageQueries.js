@@ -1,8 +1,8 @@
 import {gql} from 'apollo-boost';
 
 export const NEW_MESSAGE = gql`
-    subscription newMessage( $myId:String!){
-        newMessage(myId:$myId){
+    subscription newMessage{
+        newMessage{
             id
             text
             to{

@@ -28,7 +28,12 @@ const httpLink = new HttpLink({
         "Authorization":`Bearer ${localStorage.getItem("token")}`
     },
     options: {
-      reconnect: true
+      reconnect: true,
+      //20200706 park add start
+      connectionParams:{
+          Authorization:`${localStorage.getItem("token")}`
+      }
+      //20200706 park add end
     }
   });
 

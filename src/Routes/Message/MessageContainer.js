@@ -16,32 +16,20 @@ export default () => {
     const [createRoomMutation] = useMutation(CREATE_ROOM);
     const [sendMessageMutation] = useMutation(SEND_MESSAGE);
     const [room, setRoom] = useState(null);
-    const [myId, setMyId] = useState(null)
     const [toId, setToId] = useState("");
     const [newMessages, setNewMessages] = useState([]);
-    const {data:newMessageData,error} = useSubscription(NEW_MESSAGE,{variables:{myId:"ck9nki5lq0abe0923k34zdof5"}});
-    if(error){
-        console.log(error);
-    }
-    const testEvent= (e) =>{
-        console.log('ggg')
-    }
+    const {data:newMessageData,error} = useSubscription(NEW_MESSAGE);
 
     useEffect(()=>{console.log(listData)},[listData]);
     useEffect(()=>{
-        console.log("newMessage");
         if(newMessageData!==undefined){
             const {newMessage} = newMessageData;
-            console.log(newMessage);
             let tempListData =  listData;
             let idx=-1;
-            console.log(tempListData);
             if(tempListData&&tempListData.seeRooms){
                 idx= tempListData.seeRooms.findIndex((item)=>item.id===newMessage.room.id);
             }
             if(idx>-1){
-                console.log("im in");
-                console.log(tempListData.seeRooms[idx])
                 tempListData.seeRooms[idx].messages.push({...newMessage});
             }else{
                 const addRoom={
@@ -52,15 +40,12 @@ export default () => {
                 };
                 tempListData.seeRooms.push(addRoom);
             }
-            console.log(tempListData);
             setListData(previous=>{return {...tempListData}});
             setTimeout(()=>scrollToBottomInit(),50);
         }
     },[newMessageData]);
 
     useEffect(()=>{
-        console.log("refresh");
-        console.log(roomData);
         if(roomData!==undefined&&roomData.seeRooms.length!==0){
             setListData(roomData);
         }
@@ -78,7 +63,7 @@ export default () => {
             }
         }
         setRoom(roomS);
-        setMyId(roomS.participantA.itsMe?roomS.participantA.id:roomS.participantB.id);
+       
         
     }
     const scrollToBottomInit = () =>{
@@ -100,20 +85,13 @@ export default () => {
                 let tempRoom = room;
                 let tempRoomId= tempRoom.id;
                 if(tempRoomId.includes("createRoom")){
-                    console.log(listData);
                     const {data:{createRoom}} = await createRoomMutation({variables:{toId:tempRoom.participantA.id,text:messageInput.value}});
                     tempRoom=createRoom;
                     tempRoom.messages=[];
                     let tempListData = listData;
-                    console.log(createRoom);
-                    const idx=tempListData.seeRooms.findIndex(item=>{
-                        console.log(item.participantA.id);
-                        console.log(item.participantB.id);
-                        
+                    const idx=tempListData.seeRooms.findIndex(item=>{          
                         return (item.id===tempRoomId);
                     });
-                    console.log(tempListData);
-                    console.log(idx);
                    tempListData.seeRooms[idx] = {...tempRoom}
                     setListData(previous=>tempListData);
                 } 
