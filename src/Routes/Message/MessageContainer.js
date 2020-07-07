@@ -34,9 +34,9 @@ export default () => {
             }else{
                 const addRoom={
                     id:newMessage.room.id,
-                    participantA:room.participantA,
-                    participantB:room.participantB,
-                    messages:[newMessage]
+                    participantA:newMessage.room.participantA,
+                    participantB:newMessage.room.participantB,
+                    messages:[{...newMessage}]
                 };
                 tempListData.seeRooms.push(addRoom);
             }
