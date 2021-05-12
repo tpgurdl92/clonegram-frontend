@@ -33,7 +33,7 @@
     "styled-react-modal": "^2.0.1",
     "styled-reset": "^4.1.4",
     "subscriptions-transport-ws": "^0.9.16",
-    "swiper": "^5.4.1"
+    "swiper": "^6.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
